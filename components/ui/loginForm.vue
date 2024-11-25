@@ -8,21 +8,25 @@
 
         <div class="input-group">
           <label for="username" class="label">Usuario</label>
-          <input id="username" type="text" class="input" placeholder="Usuario">
+          <input v-model="form.usuario" id="usuario " type="text" class="input" placeholder="Usuario">
         </div>
 
         <div class="input-group">
           <label for="password" class="label">Password</label>
-          <input id="password" type="password" class="input" placeholder="Password">
+          <input v-model="form.password" id="password" type="password" class="input" placeholder="Password">
         </div>
 
-        <button class="login-button">
+        <button class="login-button" @click="login">
           Iniciar Sesión
         </button>
 
         <p class="forgot-password">
           ¿Olvidaste la contraseña?
         </p>
+
+        <div v-if="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
 
         <div class="signup-group">
           <span class="signup-text">No tienes cuenta.</span>
@@ -37,8 +41,31 @@
 
 <script>
 export default {
-  name: 'LoginForm',
+  data () {
+    return {
+      form: {
+        usuario: '',
+        password: ''
+      },
+      errorMessage: ''
+    }
+  },
   methods: {
+    async login () {
+      try {
+        const res = await this.$auth.loginWith('local', {
+          data: this.form
+        })
+
+        console.log('@@ res => ', res)
+        if (res && res.data && res.data.token) {
+          this.$router.push('/dashboard')
+        }
+      } catch (error) {
+        console.error('Error en login:', error)
+        this.errorMessage = 'Usuario o contraseña incorrectos.'
+      }
+    },
     SignUpB () {
       this.$router.push('/signup')
     }
