@@ -8,25 +8,37 @@
 
         <div class="input-group">
           <label for="username" class="label">Usuario</label>
-          <input id="username" type="text" class="input" placeholder="Usuario">
+          <input
+            id="username"
+            v-model="form.username"
+            type="text"
+            class="input"
+            placeholder="Usuario"
+          >
         </div>
 
         <div class="input-group">
           <label for="password" class="label">Password</label>
-          <input id="password" type="password" class="input" placeholder="Password">
+          <input
+            id="password"
+            v-model="form.password"
+            type="password"
+            class="input"
+            placeholder="Password"
+          >
         </div>
 
-        <button class="login-button">
+        <button class="login-button" @click="loginUser">
           Iniciar Sesión
         </button>
 
-        <p class="forgot-password">
+        <p class="forgot-password" @click="forgotPassword">
           ¿Olvidaste la contraseña?
         </p>
 
         <div class="signup-group">
           <span class="signup-text">No tienes cuenta.</span>
-          <button class="signup-button">
+          <button class="signup-button" @click="goToRegister">
             Regístrate
           </button>
         </div>
@@ -37,11 +49,63 @@
 
 <script>
 export default {
-  name: 'LoginForm'
+  name: 'LoginForm',
+  data () {
+    return {
+      form: {
+        username: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    async loginUser () {
+      // Validación básica en el frontend
+      if (!this.form.username || !this.form.password) {
+        alert('Por favor, completa todos los campos.')
+        return
+      }
+
+      try {
+        // Realiza la solicitud al backend
+        const response = await fetch('/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.form)
+        })
+
+        if (!response.ok) {
+          throw new Error('Error al iniciar sesión. Verifica tus credenciales.')
+        }
+
+        const data = await response.json()
+        alert(`Inicio de sesión exitoso: Bienvenido ${data.username}`)
+        // Almacena el token en localStorage (opcional)
+        localStorage.setItem('token', data.token)
+
+        // Redirige al usuario al dashboard o página principal
+        this.$router.push('/dashboard')
+      } catch (error) {
+        alert(`Error: ${error.message}`)
+      }
+    },
+    forgotPassword () {
+      alert('Redirigiendo a la página de recuperación de contraseña...')
+      // Lógica para redirigir a la página de recuperación de contraseña
+      this.$router.push('/forgot-password')
+    },
+    goToRegister () {
+      // Redirige a la página de registro
+      this.$router.push('/signup')
+    }
+  }
 }
 </script>
 
 <style scoped>
+/* Conserva los estilos originales */
 .login {
   background-color: #3282b8;
   display: flex;

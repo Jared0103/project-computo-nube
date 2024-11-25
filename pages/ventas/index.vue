@@ -1,11 +1,17 @@
 <template>
   <div>
-    <h1>Ventas Page</h1>
+    <home-page />
   </div>
 </template>
 
 <script>
+import homePage from '~/components/ui/homePage.vue'
 export default {
+  components: {
+    homePage
+  },
+  auth: false,
+  layout: 'dashboard'
 }
 </script>
 
