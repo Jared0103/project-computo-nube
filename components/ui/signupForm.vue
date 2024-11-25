@@ -7,34 +7,56 @@
         </h1>
 
         <div class="overlap-group">
-          <button class="register-button">
+          <button class="register-button" @click="Registrarse">
             Registrarse
           </button>
         </div>
 
         <div class="input-group">
-          <label for="username" class="label">Usuario</label>
-          <input id="username" type="text" class="input">
+          <label for="usuario" class="label">Usuario</label>
+          <input
+            id="usuario"
+            v-model="usuario"
+            type="text"
+            class="input"
+          >
         </div>
 
         <div class="input-group">
           <label for="password" class="label">Password</label>
-          <input id="password" type="password" class="input">
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            class="input"
+          >
         </div>
 
         <div class="input-group">
           <label for="confirm-password" class="label">Confirmar Password</label>
-          <input id="confirm-password" type="password" class="input">
+          <input
+            id="confirm-password"
+            v-model="confirmPassword"
+            type="password"
+            class="input"
+          >
         </div>
 
         <div class="input-group">
-          <label for="nickname" class="label">Apodo</label>
-          <input id="nickname" type="text" class="input">
+          <label for="telefono" class="label">Telefono</label>
+          <input
+            id="telefono"
+            v-model="telefono"
+            type="text"
+            class="input"
+          >
         </div>
 
         <div class="login-link">
           <span class="text-wrapper-4">¿Tienes cuenta?</span>
-          <a href="#" class="text-wrapper-5">Inicia Sesión</a>
+          <button @click="LoginB">
+            <a href="#" class="text-wrapper-5">Inicia Sesión</a>
+          </button>
         </div>
       </div>
     </div>
@@ -43,7 +65,57 @@
 
 <script>
 export default {
-  name: 'RegisterForm'
+  name: 'RegisterForm',
+  data () {
+    return {
+      usuario: '',
+      password: '',
+      confirmPassword: '',
+      telefono: '',
+      errorMessage: ''
+    }
+  },
+  methods: {
+    LoginB () {
+      this.$router.push('../')
+    },
+    Registrarse () {
+      // Validaciones
+      if (!this.usuario || !this.password || !this.confirmPassword || !this.telefono) {
+        this.errorMessage = 'Por favor, completa todos los campos.'
+        alert(this.errorMessage)
+        return
+      }
+      if (this.password !== this.confirmPassword) {
+        this.errorMessage = 'Las contraseñas no coinciden.'
+        alert(this.errorMessage)
+        return
+      }
+
+      const nuevoUsuario = {
+        usuario: this.usuario,
+        password: this.password,
+        telefono: this.telefono
+      }
+
+      /*
+      console.log('Usuario registrado:', nuevoUsuario)
+      alert('Registro exitoso')
+      this.$router.push('/') // Redirigir a la página principal
+      */
+
+      console.log('Datos a enviar:', nuevoUsuario)
+
+      this.$axios.post('/empleados/create', nuevoUsuario)
+        .then((response) => {
+          alert('Registro exitoso')
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          alert('Error al registrar: ' + error.response.data.message)
+        })
+    }
+  }
 }
 </script>
 

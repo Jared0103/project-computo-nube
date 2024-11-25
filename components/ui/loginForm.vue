@@ -26,7 +26,7 @@
 
         <div class="signup-group">
           <span class="signup-text">No tienes cuenta.</span>
-          <button class="signup-button">
+          <button class="signup-button" @click="SignUpB">
             Regístrate
           </button>
         </div>
@@ -37,7 +37,12 @@
 
 <script>
 export default {
-  name: 'LoginForm'
+  name: 'LoginForm',
+  methods: {
+    SignUpB () {
+      this.$router.push('/signup')
+    }
+  }
 }
 </script>
 
