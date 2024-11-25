@@ -1,10 +1,28 @@
 <template>
   <v-app>
+    <v-list-item two-line class="avatar">
+      <v-list-item-avatar>
+        <img src="https://randomuser.me/api/portraits/lego/6.jpg">
+      </v-list-item-avatar>
+
+      <v-list-item-content>
+        <v-list-item-title class="item-title">
+          USER
+        </v-list-item-title>
+        <v-list-item-subtitle class="item-subtitle">
+          ROL
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    <v-main>
+      <Nuxt />
+    </v-main>
     <!-- Barra lateral -->
     <v-navigation-drawer
       app
       permanent
       class="sidebar"
+      left
     >
       <template #prepend>
         <div class="logo">
@@ -31,13 +49,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
-    <!-- Espacio para el contenido principal -->
-    <v-main>
-      <v-container fluid>
-        <slot /> <!-- Aquí se inyectará el contenido de cada página -->
-      </v-container>
-    </v-main>
   </v-app>
 </template>
 
@@ -64,20 +75,6 @@ export default {
 </script>
 
 <style scoped>
-/* Asegura que el layout ocupe toda la altura de la ventana */
-html, body, #app {
-  height: 100%;
-  margin: 0;
-}
-
-.dashboard {
-  background: #f8f8f8;
-  display: flex;
-  gap: 20px;
-  overflow: hidden;
-  height: 100%;
-}
-
 /* Barra lateral que ocupa toda la altura de la ventana */
 .sidebar {
   width: 25%;
@@ -88,8 +85,6 @@ html, body, #app {
   color: #fff;
   font: 700 18px Lato, sans-serif;
   position: fixed;
-  top: 0;
-  left: 0;
 }
 
 /* Logo centrado */
@@ -137,9 +132,29 @@ html, body, #app {
   color: white; /* Asegura que el texto se mantenga blanco cuando se pasa el mouse */
 }
 
-/* Ajustar el espacio entre el contenido principal y la barra lateral */
-.v-main {
-  margin-left: 25%; /* Ajustamos el espacio para que el contenido no se superponga a la barra */
-  padding-top: 60px; /* Añadimos un poco de margen en la parte superior */
+.avatar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
+
+.item-title {
+  color: #1B262C;
+font-family: Lato;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.item-subtitle {
+  color: #0F4C75;
+font-family: Lato;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
 </style>

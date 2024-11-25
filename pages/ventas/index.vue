@@ -1,14 +1,14 @@
 <template>
   <div>
-    <home-page />
+    <ventas-page />
   </div>
 </template>
 
 <script>
-import homePage from '~/components/ui/homePage.vue'
+import ventasPage from '~/components/ui/ventasPage.vue'
 export default {
   components: {
-    homePage
+    ventasPage
   },
   auth: false,
   layout: 'dashboard'
