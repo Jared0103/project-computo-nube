@@ -59,7 +59,7 @@ export default {
 
         console.log('@@ res => ', res)
         if (res && res.data && res.data.token) {
-          this.$router.push('/dashboard')
+          this.$router.push('/home')
         }
       } catch (error) {
         console.error('Error en login:', error)
