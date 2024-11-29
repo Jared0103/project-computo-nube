@@ -65,7 +65,8 @@ export default {
         { id: 1, item: '', reference: '', price: 0, discount: 0, tax: 0, description: '', quantity: 0, total: 0 },
         { id: 2, item: '', reference: '', price: 0, discount: 0, tax: 0, description: '', quantity: 0, total: 0 },
         { id: 3, item: '', reference: '', price: 0, discount: 0, tax: 0, description: '', quantity: 0, total: 0 }
-      ]
+      ],
+      totalInvoice: 0 // Variable para almacenar el total de la factura
     }
   },
   watch: {
@@ -74,6 +75,7 @@ export default {
         this.items.forEach((item) => {
           this.calculateTotal(item)
         })
+        this.calculateTotalInvoice() // Recalcular el total de la factura
       },
       deep: true
     }
@@ -97,6 +99,10 @@ export default {
     },
     calculateTotal (item) {
       item.total = (item.price * item.quantity) - (item.price * item.quantity * (item.discount / 100)) + (item.price * item.quantity * (item.tax / 100))
+    },
+    // Método que calcula el total de todos los items
+    calculateTotalInvoice () {
+      this.totalInvoice = this.items.reduce((acc, item) => acc + item.total, 0)
     }
   }
 }

@@ -24,8 +24,8 @@
 
               <!-- Menú desplegable -->
               <ul v-if="isMenuOpen" class="dropdown-menu">
-                <li @click="selectOption('Facturas recurrentes')">
-                  Facturas recurrentes
+                <li @click="selectOption('Facturas')">
+                  Facturas
                 </li>
                 <li @click="selectOption('Cotizaciones')">
                   Cotizaciones
@@ -47,7 +47,7 @@
                 alt=""
                 aria-hidden="true"
               >
-              <span class="button-text">Agregar nueva Factura</span>
+              <span class="button-text">Agregar nueva Factura Recurrente</span>
             </button>
           </div>
 
@@ -125,9 +125,9 @@ export default {
       this.isMenuOpen = !this.isMenuOpen // Alterna el estado del menú
     },
     selectOption (option) {
-      if (option === 'Facturas recurrentes') {
-        alert('Mostrando facturas recurrentes...')
-        this.$router.push('/ventas/facturas')
+      if (option === 'Facturas') {
+        alert('Mostrando facturas...')
+        this.$router.push('/ventas')
         this.isMenuOpen = false // Cierra el menú después de seleccionar
       } else if (option === 'Cotizaciones') {
         alert('Mostrando cotizaciones...')
@@ -135,8 +135,8 @@ export default {
       }
     },
     handleAddInvoice () {
-      this.$router.push('/ventas/AddVenta')
-      alert('Redirigiendo para agregar una nueva factura...')
+      this.$router.push('/ventas/facturas/Addfactura')
+      alert('Redirigiendo para agregar una nueva factura recurrente...')
     },
     editInvoice (index) {
       alert(`Editando la factura con índice: ${index}`)
