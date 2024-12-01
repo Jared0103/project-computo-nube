@@ -5,14 +5,14 @@
       <section class="content">
         <header class="header">
           <h1 class="title">
-            VENTAS
+            Cotizacion
           </h1>
         </header>
         <section class="invoice-section">
           <div class="button-container">
             <div class="invoice-filter" @click="toggleMenu">
               <h2 class="filter-title">
-                Facturas
+                COTIZACION
               </h2>
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/879512853f4f9f066c4a0ca115ff454d1e1662e69bd2f0e04dc30daf21f6ca5e?placeholderIfAbsent=true&apiKey=0530c95f46a140828115849cce90f8b6"
@@ -29,7 +29,7 @@
               </ul>
             </div>
           </div>
-          <venta-form />
+          <ventaCotiForm />
         </section>
       </section>
     </div>
@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import ventaForm from './ventaForm.vue'
+import ventaCotiForm from './ventaCotiForm.vue'
 
 export default {
-  components: { ventaForm },
+  components: { ventaCotiForm },
   data () {
     return {
       isMenuOpen: false,

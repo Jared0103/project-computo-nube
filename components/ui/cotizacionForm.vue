@@ -132,7 +132,7 @@
             <button type="button" class="cancel-button" @click="cancel">
               Cancelar
             </button>
-            <button type="submit" class="submit-button">
+            <button type="submit" class="submit-button" @click="Guradar">
               Guardar
             </button>
           </div>
@@ -278,6 +278,9 @@ export default {
         nota: this.notes
       }
 
+      // Guardar la cotización en localStorage
+      localStorage.setItem('quotation', JSON.stringify(quotation))
+
       try {
         // Enviar al backend
         await axios.post('http://localhost:3020/api/v1/cotizaciones/create', quotation)
@@ -286,6 +289,9 @@ export default {
         console.error('Error guardando la cotización:', error)
         alert('Hubo un error al guardar la cotización')
       }
+    },
+    Guradar () {
+      this.$router.push('./PrevisualCotizacion')
     }
   }
 }
