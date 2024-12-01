@@ -5,22 +5,30 @@
         Información de Contacto
       </h2>
 
+      <!-- Selector para Contactos -->
       <div class="input-group">
         <label for="contact" class="required-field">Contacto</label>
         <div class="contact-actions">
-          <input
-            v-model="contactName"
-            type="text"
+          <select
+            id="contact"
+            v-model="selectedContactId"
             class="form-input"
-            placeholder="Buscar"
-            @input="searchContact"
+            @change="fetchContactInfo"
           >
+            <option value="" disabled>
+              Selecciona un contacto
+            </option>
+            <option v-for="contact in contacts" :key="contact.id" :value="contact.id">
+              {{ contact.usuario }}
+            </option>
+          </select>
           <button type="button" class="add-client" @click="addNewClient">
             Agregar nuevo Cliente
           </button>
         </div>
       </div>
 
+      <!-- Campos de información del contacto -->
       <div class="input-group">
         <label for="clientId">ID Cliente</label>
         <input
@@ -28,8 +36,8 @@
           v-model="clientId"
           type="text"
           class="form-input"
-          placeholder="Ingresa ID del cliente"
-          :disabled="isAddingNewClient"
+          placeholder="ID del cliente"
+          :disabled="true"
         >
       </div>
 
@@ -40,84 +48,60 @@
           v-model="phone"
           type="tel"
           class="form-input"
-          placeholder="Ingresa número de teléfono"
-          :disabled="isAddingNewClient"
+          placeholder="Número de teléfono"
+          :disabled="true"
         >
-      </div>
-    </section>
-
-    <section class="dates-section" aria-labelledby="dates-heading">
-      <h2 id="dates-heading" class="visually-hidden">
-        Información de Fechas
-      </h2>
-
-      <div class="dates-grid">
-        <div class="input-group">
-          <label for="date" class="required-field">Fecha</label>
-          <input id="date" v-model="date" type="date" class="date-input">
-        </div>
-
-        <div class="input-group">
-          <label for="paymentType" class="required-field">Tipo de pago</label>
-          <select id="paymentType" v-model="paymentType" class="select-input">
-            <option value="contado">
-              Contado
-            </option>
-            <option value="credito">
-              Crédito
-            </option>
-          </select>
-        </div>
-
-        <div class="input-group">
-          <label for="term" class="required-field">Término</label>
-          <input id="term" v-model="term" type="date" class="date-input">
-        </div>
-
-        <div class="input-group">
-          <label for="dueDate" class="required-field">Fecha de vencimiento</label>
-          <input id="dueDate" v-model="dueDate" type="date" class="date-input">
-        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'InvoiceDetails',
   data () {
     return {
-      contactName: '', // Nombre del contacto ingresado
+      selectedContactId: '', // ID del contacto seleccionado
       clientId: '', // ID Cliente
       phone: '', // Teléfono
-      date: '',
-      paymentType: 'contado',
-      term: '',
-      dueDate: '',
-      isAddingNewClient: false, // Estado que indica si se está agregando un nuevo cliente
-      contacts: [
-        { name: 'Juan Pérez', id: '123', phone: '555-1234' },
-        { name: 'María López', id: '456', phone: '555-5678' },
-        { name: 'Carlos García', id: '789', phone: '555-9101' }
-      ] // Lista de contactos simulados (esto debería venir de una API)
+      contacts: [] // Lista de contactos cargada desde la base de datos
     }
   },
+  mounted () {
+    this.loadContacts()
+  },
   methods: {
-    // Método para buscar un contacto por nombre
-    searchContact () {
-      if (this.contactName) {
-        const foundContact = this.contacts.find(contact =>
-          contact.name.toLowerCase().includes(this.contactName.toLowerCase())
-        )
+    // Método para cargar contactos desde la base de datos
+    async loadContacts () {
+      try {
+        const response = await axios.get('http://localhost:3020/api/v1/empleados')
+        console.log(response.data) // Verifica la estructura de los datos
 
-        if (foundContact) {
-          this.clientId = foundContact.id
-          this.phone = foundContact.phone
+        // Comprobamos si la respuesta tiene la propiedad empleados y es un arreglo
+        if (response.data && Array.isArray(response.data.empleados)) {
+          // Si empleados es un arreglo, lo asignamos directamente
+          this.contacts = response.data.empleados
+        } else if (response.data && response.data.empleados && typeof response.data.empleados === 'object') {
+          // Si es un objeto, lo convertimos en un arreglo
+          this.contacts = Object.values(response.data.empleados)
         } else {
-          this.clientId = ''
-          this.phone = ''
+          console.error('No se encontró la propiedad empleados o no es un arreglo:', response.data)
         }
+      } catch (error) {
+        console.error('Error cargando contactos:', error)
+      }
+    },
+
+    // Método para obtener la información del contacto seleccionado
+    fetchContactInfo () {
+      console.log('this.contacts:', this.contacts) // Verifica el contenido de contacts
+      const selectedContact = this.contacts.find(contact => contact.id === this.selectedContactId)
+
+      if (selectedContact) {
+        this.clientId = selectedContact.id
+        this.phone = selectedContact.telefono
       } else {
         this.clientId = ''
         this.phone = ''
@@ -126,8 +110,7 @@ export default {
 
     // Método para habilitar los campos de nuevo contacto
     addNewClient () {
-      this.isAddingNewClient = true
-      this.contactName = ''
+      this.selectedContactId = ''
       this.clientId = ''
       this.phone = ''
     }

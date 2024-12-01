@@ -9,9 +9,7 @@
           </h1>
         </header>
         <section class="invoice-section">
-          <!-- Contenedor de botones -->
           <div class="button-container">
-            <!-- Botón que despliega opciones -->
             <div class="invoice-filter" @click="toggleMenu">
               <h2 class="filter-title">
                 Facturas
@@ -21,8 +19,6 @@
                 alt="Filter icon"
                 class="filter-icon"
               >
-
-              <!-- Menú desplegable -->
               <ul v-if="isMenuOpen" class="dropdown-menu">
                 <li @click="selectOption('Facturas recurrentes')">
                   Facturas recurrentes
@@ -32,75 +28,8 @@
                 </li>
               </ul>
             </div>
-
-            <!-- Botón "Agregar nueva Factura" -->
-            <button
-              class="invoice-button"
-              aria-label="Add new invoice"
-              tabindex="0"
-              @click="handleAddInvoice"
-            >
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f546edc13a567346e360aa51253094ac447db281dbae4ba879a1d8c6aa4c77a?placeholderIfAbsent=true&apiKey=0530c95f46a140828115849cce90f8b6"
-                class="add-icon"
-                alt=""
-                aria-hidden="true"
-              >
-              <span class="button-text">Agregar nueva Factura</span>
-            </button>
           </div>
-
-          <!-- Tabla de facturas -->
-          <div class="table-container">
-            <table class="invoice-table">
-              <thead>
-                <tr class="table-header">
-                  <th scope="col">
-                    Nombre
-                  </th>
-                  <th scope="col">
-                    Tax ID
-                  </th>
-                  <th scope="col">
-                    Teléfono
-                  </th>
-                  <th scope="col">
-                    Observaciones
-                  </th>
-                  <th scope="col">
-                    Acciones
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(invoice, index) in invoices" :key="index" class="table-row">
-                  <td>{{ invoice.name }}</td>
-                  <td>{{ invoice.taxId }}</td>
-                  <td>{{ invoice.phone }}</td>
-                  <td>{{ invoice.notes }}</td>
-                  <td class="actions">
-                    <!-- Botón de edición -->
-                    <button class="action-btn edit" aria-label="Edit invoice" @click="editInvoice(index)">
-                      <img
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8da94eb67ab3173226e64e86718529589bd1d9925fa5748a510caf323ec88c5c?placeholderIfAbsent=true&apiKey=0530c95f46a140828115849cce90f8b6"
-                        alt="Edit icon"
-                        class="action-icon"
-                      >
-                    </button>
-                    <!-- Botón de eliminación -->
-                    <button class="action-btn delete" aria-label="Delete invoice" @click="deleteInvoice(index)">
-                      <img
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d4a520a2d2ae93ae806fe2bb693c3197a3883a1884d510838ac11fed0f71ff99?placeholderIfAbsent=true&apiKey=0530c95f46a140828115849cce90f8b6"
-                        alt="Delete icon"
-                        class="action-icon"
-                      >
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <venta-form />
         </section>
       </section>
     </div>
@@ -108,15 +37,16 @@
 </template>
 
 <script>
+import ventaForm from './ventaForm.vue'
 
 export default {
+  components: { ventaForm },
   data () {
     return {
       isMenuOpen: false,
       invoices: [
         { name: 'Good Shoes', taxId: 'RU123456', phone: '314502365', notes: 'Pending approval' },
         { name: 'Fast Cars', taxId: 'CA654321', phone: '314789456', notes: 'Delivered' }
-        // Más datos de ejemplo...
       ]
     }
   },

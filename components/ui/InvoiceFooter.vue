@@ -16,6 +16,7 @@
         type="button"
         class="quote-button"
         aria-label="Add quote"
+        @click="GoCotizacion"
       >
         <img
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/1e9066d1ef29857009aef76713fccedd7f73e5926659703ec2048f25cdfc9081?placeholderIfAbsent=true&apiKey=0530c95f46a140828115849cce90f8b6"
@@ -133,13 +134,6 @@
           >
             Guardar y Imprimir
           </button>
-          <button
-            type="button"
-            role="menuitem"
-            @click="saveAndEmail"
-          >
-            Guardar y Enviar por Email
-          </button>
         </div>
       </div>
     </div>
@@ -193,6 +187,9 @@ export default {
       this.subtotal = 0
       this.discount = 0
       this.$emit('cancel') // Puede emitir cualquier evento de cancelación si es necesario
+    },
+    GoCotizacion () {
+      this.$router.push('/ventas/Cotizacion')
     }
   }
 }

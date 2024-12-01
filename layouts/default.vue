@@ -60,9 +60,7 @@ export default {
       items: [
         { title: 'HOME', path: '/home' },
         { title: 'CONTACTOS', path: '/contactos' },
-        { title: 'VENTAS', path: '/ventas' },
-        { title: 'INVENTARIOS', path: '/home' },
-        { title: 'CONFIGURACIÓN', path: '/home' }
+        { title: 'VENTAS', path: '/ventas' }
       ]
     }
   },

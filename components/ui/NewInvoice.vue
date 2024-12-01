@@ -1,7 +1,6 @@
 <template>
   <main class="invoice-page" role="main">
     <div class="invoice-layout">
-      <!-- Main Content -->
       <section class="main-content" role="region" aria-label="Formulario de factura">
         <header class="header">
           <h1 class="title">
@@ -36,7 +35,6 @@ export default {
   },
   methods: {
     handleSubmit () {
-      // Lógica para el envío del formulario
       console.log('Formulario enviado')
     }
   }

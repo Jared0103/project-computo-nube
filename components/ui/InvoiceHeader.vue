@@ -9,7 +9,6 @@
       >
         Usar Logo
       </button>
-      <!-- Campo invisible de carga de imagen -->
       <input
         ref="logoFileInput"
         type="file"
@@ -24,7 +23,6 @@
     </div>
 
     <div class="merchant-info">
-      <!-- Si estamos en modo de edición, mostrar un campo de texto -->
       <span v-if="!isEditing" class="merchant-name">{{ merchantName }}</span>
       <input
         v-else
