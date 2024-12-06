@@ -1,14 +1,14 @@
 <template>
   <div>
-    <home-page />
+    <cotizacionForm />
   </div>
 </template>
 
 <script>
-import homePage from '~/components/ui/homePage.vue'
+import cotizacionForm from '~/components/ui/cotizacionForm.vue'
 export default {
   components: {
-    homePage
+    cotizacionForm
   },
   layout: 'dashboard',
   middleware: 'auth'

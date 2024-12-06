@@ -8,12 +8,12 @@
 
         <div class="input-group">
           <label for="username" class="label">Usuario</label>
-          <input v-model="form.usuario" id="usuario " type="text" class="input" placeholder="Usuario">
+          <input id="usuario " v-model="form.usuario" type="text" class="input" placeholder="Usuario">
         </div>
 
         <div class="input-group">
           <label for="password" class="label">Password</label>
-          <input v-model="form.password" id="password" type="password" class="input" placeholder="Password">
+          <input id="password" v-model="form.password" type="password" class="input" placeholder="Password">
         </div>
 
         <button class="login-button" @click="login">
@@ -59,7 +59,7 @@ export default {
 
         console.log('@@ res => ', res)
         if (res && res.data && res.data.token) {
-          this.$router.push('/dashboard')
+          this.$router.push('/home')
         }
       } catch (error) {
         console.error('Error en login:', error)

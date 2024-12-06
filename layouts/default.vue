@@ -1,118 +1,158 @@
 <template>
-  <v-app dark>
+  <v-app>
+    <v-list-item two-line class="avatar">
+      <v-list-item-avatar>
+        <img src="https://randomuser.me/api/portraits/lego/6.jpg">
+      </v-list-item-avatar>
+
+      <v-list-item-content>
+        <v-list-item-title class="item-title">
+          USER
+        </v-list-item-title>
+        <v-list-item-subtitle class="item-subtitle">
+          ROL
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    <v-main>
+      <Nuxt />
+    </v-main>
+    <!-- Barra lateral -->
     <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
       app
+      permanent
+      class="sidebar"
+      left
     >
-      <v-list>
+      <template #prepend>
+        <div class="logo">
+          LOGO
+        </div>
+      </template>
+
+      <v-divider />
+
+      <v-list dense class="navigation">
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
+          v-for="(item, index) in items"
+          :key="index"
+          link
+          :to="item.path"
+          :class="{'nav-item': true, 'nav-item-active': activeItem === index}"
+          @click="setActiveItem(index)"
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title :class="{'text-white': true, 'text-primary': activeItem === index}">
+              {{ item.title }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-main>
-      <v-container>
-        <Nuxt />
-      </v-container>
-    </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: 'DefaultLayout',
   data () {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
+      activeItem: 0, // Elemento activo por defecto
       items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+        { title: 'HOME', path: '/home' },
+        { title: 'CONTACTOS', path: '/contactos' },
+        { title: 'VENTAS', path: '/ventas' }
+      ]
+    }
+  },
+  methods: {
+    setActiveItem (index) {
+      this.activeItem = index
     }
   }
 }
 </script>
+
+<style scoped>
+/* Barra lateral que ocupa toda la altura de la ventana */
+.sidebar {
+  width: 25%;
+  height: 100vh; /* Esto asegura que la barra ocupe toda la altura disponible */
+  border-radius: 0 50px 0 0;
+  background: #0f4c75;
+  padding: 80px 0;
+  color: #fff;
+  font: 700 18px Lato, sans-serif;
+  position: fixed;
+}
+
+/* Logo centrado */
+.logo {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Estilo de la lista de navegación */
+.navigation {
+  flex-direction: column;
+  gap: 30px; /* Menos espacio entre los elementos */
+}
+
+.nav-item {
+  text-decoration: none;
+  padding: 20px 60px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s; /* Transición también para el color */
+}
+
+/* Resaltar el ítem activo */
+.nav-item-active {
+  background: #bbe1fa;
+  border-radius: 50px 0 0 50px;
+}
+
+/* Asegurarse de que el texto sea blanco por defecto */
+.text-white {
+  color: white;
+}
+
+/* Cambiar color cuando el ítem está activo */
+.text-primary {
+  color: #0f4c75;
+}
+
+/* Efecto de hover */
+.nav-item:hover {
+  background-color: #3282b8;
+  color: white; /* Asegura que el texto se mantenga blanco cuando se pasa el mouse */
+}
+
+.avatar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.item-title {
+  color: #1B262C;
+font-family: Lato;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.item-subtitle {
+  color: #0F4C75;
+font-family: Lato;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+</style>

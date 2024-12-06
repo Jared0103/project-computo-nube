@@ -1,14 +1,14 @@
 <template>
   <div>
-    <ventas-page />
+    <NewInvoice />
   </div>
 </template>
 
 <script>
-import ventasPage from '~/components/ui/ventasPage.vue'
+import NewInvoice from '~/components/ui/NewInvoice.vue'
 export default {
   components: {
-    ventasPage
+    NewInvoice
   },
   auth: false,
   layout: 'dashboard'

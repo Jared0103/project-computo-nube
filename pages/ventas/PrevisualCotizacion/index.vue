@@ -1,14 +1,14 @@
 <template>
   <div>
-    <home-page />
+    <cotizacion-previu />
   </div>
 </template>
 
 <script>
-import homePage from '~/components/ui/homePage.vue'
+import CotizacionPreviu from '~/components/ui/cotizacionPreviu.vue'
 export default {
   components: {
-    homePage
+    CotizacionPreviu
   },
   layout: 'dashboard',
   middleware: 'auth'
