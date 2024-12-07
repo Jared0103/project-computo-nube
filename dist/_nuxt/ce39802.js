@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[30],{545:function(t,n,e){"use strict";e.r(n);var o={components:{ventasCotiPage:e(534).default},auth:!1,layout:"dashboard"},c=e(72),component=Object(c.a)(o,(function(){var t=this._self._c;return t("div",[t("ventasCotiPage")],1)}),[],!1,null,"c22b4610",null);n.default=component.exports}}]);

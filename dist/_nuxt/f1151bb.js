@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[25],{540:function(n,t,e){"use strict";e.r(t);var c={},r=e(72),component=Object(r.a)(c,(function(){this._self._c;return this._m(0)}),[function(){var n=this._self._c;return n("div",[n("h1",[this._v("Inventarios Page")])])}],!1,null,"77c5ab45",null);t.default=component.exports}}]);

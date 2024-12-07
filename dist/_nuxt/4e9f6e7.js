@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[31],{542:function(n,t,e){"use strict";e.r(t);var o={components:{ventasPage:e(532).default},auth:!1,layout:"dashboard"},c=e(72),component=Object(c.a)(o,(function(){var n=this._self._c;return n("div",[n("ventas-page")],1)}),[],!1,null,"430cb51b",null);t.default=component.exports}}]);

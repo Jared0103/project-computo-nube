@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[24],{539:function(n,t,e){"use strict";e.r(t);var r={},c=e(72),component=Object(c.a)(r,(function(){this._self._c;return this._m(0)}),[function(){var n=this._self._c;return n("div",[n("h1",[this._v("Ingresos Page")])])}],!1,null,"ffd58e72",null);t.default=component.exports}}]);
